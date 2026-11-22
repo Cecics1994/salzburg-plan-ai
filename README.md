@@ -1,73 +1,47 @@
-# Welcome to your Lovable project
+# Salzburg Card Explorer: AI Trip Planner
 
-## Project info
+A mobile-first web app for planning a trip to Salzburg, Austria: discover attractions, build an itinerary (step-by-step or by describing your trip in plain language), and buy the Salzburg Card.
 
-**URL**: https://lovable.dev/projects/2e3f10f7-d4f7-444d-9fe6-3f8f1f50fcb8
+**Live demo:** https://salzburg-plan-ai.pages.dev <!-- TODO: replace with your Cloudflare Pages URL -->
 
-## How can I edit this code?
+> Best viewed on a phone, or with your browser's mobile device emulation (the layout is capped at 480px).
 
-There are several ways of editing your application.
+<!-- TODO: add 2–3 screenshots, e.g. docs/home.png, docs/plan.png, docs/place.png -->
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/2e3f10f7-d4f7-444d-9fe6-3f8f1f50fcb8) and start prompting.
+- **Attraction discovery**: browse Salzburg sights with descriptions, prices, opening hours and accessibility info
+- **Trip planning wizard**: guided flow for building an itinerary
+- **Chat mode**: describe your ideal trip in natural language and get a personalized plan
+- **Salzburg Card purchase flow**: card info, selection and checkout screens
+- **Maps**: Google Maps integration for locating places
 
-Changes made via Lovable will be committed automatically to this repo.
+## Tech stack
 
-**Use your preferred IDE**
+React 18 · TypeScript · Vite · Tailwind CSS · shadcn/ui · React Router · TanStack Query · React Hook Form + Zod · Google Maps (`@vis.gl/react-google-maps`)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+AI backend design: an [n8n](https://n8n.io) workflow (`n8n-convoluted.json`) that takes a trip request via webhook, gathers data through HTTP requests, and returns a generated itinerary.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+## My role
 
-Follow these steps:
+<!-- TODO: describe your contribution, e.g. product idea, UX flows, AI/n8n workflow, specific pages -->
+
+This was a team project, originally developed at [momenator/salzburg-plan-ai](https://github.com/momenator/salzburg-plan-ai). This fork is my maintained copy with a fixed, publicly hosted deployment.
+
+## Project status
+
+This is a prototype. The frontend is complete and static. In the deployed demo, chat mode simulates the AI response; it is not connected to the n8n workflow.
+
+## Running locally
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+npm ci
+npm run dev        # http://localhost:8080
+npm run build      # production build in dist/
 ```
 
-**Edit a file directly in GitHub**
+Optional: create `.env.local` with `VITE_GOOGLE_MAPS_API_KEY=<your key>` to enable maps.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Deployment
 
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/2e3f10f7-d4f7-444d-9fe6-3f8f1f50fcb8) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Hosted on Cloudflare Pages: build command `npm run build`, output directory `dist`, environment variable `VITE_GOOGLE_MAPS_API_KEY`. Client-side routes (e.g. `/place/mirabell`) work out of the box because Pages serves `index.html` for unknown paths when no `404.html` is present.
