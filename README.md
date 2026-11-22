@@ -2,7 +2,7 @@
 
 A mobile-first web app for planning a trip to Salzburg, Austria: discover attractions, build an itinerary (step-by-step or by describing your trip in plain language), and buy the Salzburg Card.
 
-**Live demo:** https://salzburg-plan-ai.pages.dev <!-- TODO: replace with your Cloudflare Pages URL -->
+**Live demo:** https://salzburg-plan-ai.cecics2401.workers.dev
 
 > Best viewed on a phone, or with your browser's mobile device emulation (the layout is capped at 480px).
 
@@ -44,4 +44,11 @@ Optional: create `.env.local` with `VITE_GOOGLE_MAPS_API_KEY=<your key>` to enab
 
 ## Deployment
 
-Hosted on Cloudflare Pages: build command `npm run build`, output directory `dist`, environment variable `VITE_GOOGLE_MAPS_API_KEY`. Client-side routes (e.g. `/place/mirabell`) work out of the box because Pages serves `index.html` for unknown paths when no `404.html` is present.
+Hosted on Cloudflare (Workers static assets), configured in `wrangler.jsonc`. Unknown paths fall back to `index.html`, so client-side routes like `/place/hohensalzburg-fortress` work when opened directly.
+
+```sh
+npm run build
+npx wrangler deploy
+```
+
+`VITE_GOOGLE_MAPS_API_KEY` is read at build time, so set it in `.env.local` (or the CI environment) before building.
